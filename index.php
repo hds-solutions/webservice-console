@@ -1,7 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php
+    // cargamos las configuraciones
+    $config =   file_exists('console.config') ?
+                json_decode(file_get_contents('console.config')) :
+                // default config
+                (object)[ 'title' => 'Unknown', 'endpoints' => [] ];
+?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Webservice - Console</title>
+        <title><?=$config->title?> Webservice Console</title>
         <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
         <link rel="stylesheet" href="css/vendor/jquery.jsonviewer.min.css" />
         <link rel="stylesheet" href="inc/wholeauth/src/net/hds-solutions/wholeauth/css/wholeauth-wk.min.css"></link>
@@ -15,7 +21,7 @@
                 <div class="col-md-6">
 		            <div class="panel panel-primary">
 		                <div class="panel-heading">
-		                    <h3 class="panel-title">Webservice Console</h3>
+		                    <h3 class="panel-title"><?=$config->title?> Webservice Console</h3>
 		                </div>
                         <div class="panel-body">
 	                        <form action="../api/v1.0" class="form-horizontal" id="console">
@@ -27,6 +33,13 @@
 			                                    <option value="0" method="GET" endpoint="login" extra="false" selected="selected">GET/login</option>
 			                                    <option value="1" method="POST" endpoint="login" extra="false">POST/login</option>
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
+                                                <?php
+                                                    $endpointno = 3;
+                                                    foreach ($config->endpoints AS $endpoint) {
+                                                        echo '<option value="'.$endpointno.'" method="'.$endpoint->method.'" endpoint="'.$endpoint->endpoint.'" extra="'.($endpoint->extra?'true':'false').'">'.$endpoint->method.'/'.$endpoint->endpoint.'</option>';
+                                                        $endpointno++;
+                                                    }
+                                                ?>
 			                                </select>
 			                            </div>
                                         <div class="col-md-5">
@@ -50,6 +63,7 @@
 	                                    <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
 	                                    <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
+                                        <?php foreach ($config->endpoints AS $endpoint) echo '<li><a href="#'.strtolower($endpoint->method).'-'.$endpoint->endpoint.'" data-toggle="tab">'.$endpoint->method.'/'.$endpoint->endpoint.'</a></li>'; ?>
 	                                </ul>
                                 </div>
                                 <div class="tab-content form-horizontal" id="endpoint-params">
