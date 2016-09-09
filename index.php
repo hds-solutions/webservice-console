@@ -1,9 +1,9 @@
 <?php
     // cargamos las configuraciones
     $config =   file_exists('console.config') ?
-                json_decode(file_get_contents('console.config')) :
-                // default config
-                (object)[ 'title' => 'Unknown', 'endpoints' => [] ];
+                json_decode(file_get_contents('console.config')) : null;
+    // default config
+    if ($config == null) $config = (object)[ 'title' => 'Unconfigured', 'endpoints' => [] ];
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
