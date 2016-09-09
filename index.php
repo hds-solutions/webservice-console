@@ -1,7 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php
+    // cargamos las configuraciones
+    $config =   file_exists('console.config') ?
+                json_decode(file_get_contents('console.config')) : null;
+    // default config
+    if ($config == null) $config = (object)[ 'title' => 'Unconfigured', 'endpoints' => [] ];
+?><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Webservice - Console</title>
+        <title><?=$config->title?> Webservice Console</title>
         <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
         <link rel="stylesheet" href="css/vendor/jquery.jsonviewer.min.css" />
         <link rel="stylesheet" href="inc/wholeauth/src/net/hds-solutions/wholeauth/css/wholeauth-wk.min.css"></link>
@@ -15,7 +21,7 @@
                 <div class="col-md-6">
 		            <div class="panel panel-primary">
 		                <div class="panel-heading">
-		                    <h3 class="panel-title">Webservice Console</h3>
+		                    <h3 class="panel-title"><?=$config->title?> Webservice Console</h3>
 		                </div>
                         <div class="panel-body">
 	                        <form action="../api/v1.0" class="form-horizontal" id="console">
@@ -27,6 +33,13 @@
 			                                    <option value="0" method="GET" endpoint="login" extra="false" selected="selected">GET/login</option>
 			                                    <option value="1" method="POST" endpoint="login" extra="false">POST/login</option>
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
+                                                <?php
+                                                    $endpointno = 3;
+                                                    foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) {
+                                                        echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
+                                                        $endpointno++;
+                                                    }}
+                                                ?>
 			                                </select>
 			                            </div>
                                         <div class="col-md-5">
@@ -50,6 +63,10 @@
 	                                    <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
 	                                    <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
+                                        <?php
+                                            foreach ($config->endpoints as $endpoint => $edata) foreach ($edata as $method => $data)
+                                                echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
+                                        ?>
 	                                </ul>
                                 </div>
                                 <div class="tab-content form-horizontal" id="endpoint-params">
@@ -57,25 +74,56 @@
                                     <div class="tab-pane" id="post-login">
                                         <div class="row">
 	                                        <div class="form-group">
-	                                            <label class="col-md-2 control-label">user</label>
-	                                            <div class="col-md-8">
+	                                            <label class="col-md-3 control-label">user</label>
+	                                            <div class="col-md-7">
 	                                                <input id="user" type="text" class="form-control" placeholder="user"/>
 	                                            </div>
 	                                        </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">pass</label>
-                                                <div class="col-md-8">
+                                                <label class="col-md-3 control-label">pass</label>
+                                                <div class="col-md-7">
                                                     <input id="pass" type="text" class="form-control" placeholder="pass"/>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <button class="btn btn-warning btn-xs" id="hash">HASH</button>
+                                                    <button class="btn btn-warning btn-xs btn-hash">HASH</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="delete-login"></div>
+                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
+                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
+                                        <?php foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-11 col-md-offset-1">
+                                                    <h3><?=$name ?></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php foreach ($arg as $cArg) { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label"><?=$cArg ?></label>
+                                                <div class="col-md-7">
+                                                    <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }} else { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label"><?=$arg ?></label>
+                                                <div class="col-md-7">
+                                                    <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }} ?>
+                                    </div>
+                                    <?php }} ?>
                                 </div>
 		                   </form>
                         </div>

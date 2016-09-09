@@ -41,9 +41,12 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 $('#hash').fadeIn();
             }
         });
-        $('#hash').click(function() {
-            $('#pass').val(CryptoJS.MD5(/*Base64.encode(*/$('#pass').val()/*)*/).toString()).attr('type', 'password');
-            $(this).fadeOut();
+        $('.btn-hash').each(function() {
+            var $self = $(this);
+            $self.click(function() {
+                $('#pass').val(CryptoJS.MD5(/*Base64.encode(*/$('#pass').val()/*)*/).toString()).attr('type', 'password');
+                $self.fadeOut();
+            });
         });
         // send button
         $('#send').click(function() {
