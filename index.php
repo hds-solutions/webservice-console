@@ -95,7 +95,24 @@
                                     <div class="tab-pane" id="delete-login"></div>
                                     <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
                                     <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
-                                        <?php foreach ($data->args as $name => $arg) { ?>
+                                        <?php foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-11 col-md-offset-1">
+                                                    <h3><?=$name ?></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php foreach ($arg as $cArg) { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label"><?=$cArg ?></label>
+                                                <div class="col-md-7">
+                                                    <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }} else { ?>
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$arg ?></label>
@@ -104,7 +121,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php } ?>
+                                        <?php }} ?>
                                     </div>
                                     <?php }} ?>
                                 </div>
