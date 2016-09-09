@@ -35,10 +35,10 @@
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
                                                 <?php
                                                     $endpointno = 3;
-                                                    foreach ($config->endpoints AS $endpoint) {
-                                                        echo '<option value="'.$endpointno.'" method="'.$endpoint->method.'" endpoint="'.$endpoint->endpoint.'" extra="'.($endpoint->extra?'true':'false').'">'.$endpoint->method.'/'.$endpoint->endpoint.'</option>';
+                                                    foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) {
+                                                        echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
                                                         $endpointno++;
-                                                    }
+                                                    }}
                                                 ?>
 			                                </select>
 			                            </div>
@@ -63,7 +63,10 @@
 	                                    <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
 	                                    <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
-                                        <?php foreach ($config->endpoints AS $endpoint) echo '<li><a href="#'.strtolower($endpoint->method).'-'.$endpoint->endpoint.'" data-toggle="tab">'.$endpoint->method.'/'.$endpoint->endpoint.'</a></li>'; ?>
+                                        <?php
+                                            foreach ($config->endpoints as $endpoint => $edata) foreach ($edata as $method => $data)
+                                                echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
+                                        ?>
 	                                </ul>
                                 </div>
                                 <div class="tab-content form-horizontal" id="endpoint-params">
@@ -90,6 +93,20 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="delete-login"></div>
+                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
+                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
+                                        <?php foreach ($data->args as $name => $arg) { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"><?=$arg ?></label>
+                                                <div class="col-md-8">
+                                                    <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    <?php }} ?>
                                 </div>
 		                   </form>
                         </div>
