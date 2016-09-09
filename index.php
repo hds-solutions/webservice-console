@@ -74,16 +74,16 @@
                                     <div class="tab-pane" id="post-login">
                                         <div class="row">
 	                                        <div class="form-group">
-	                                            <label class="col-md-2 control-label">user</label>
-	                                            <div class="col-md-8">
+	                                            <label class="col-md-3 control-label">user</label>
+	                                            <div class="col-md-7">
 	                                                <input id="user" type="text" class="form-control" placeholder="user"/>
 	                                            </div>
 	                                        </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">pass</label>
-                                                <div class="col-md-8">
+                                                <label class="col-md-3 control-label">pass</label>
+                                                <div class="col-md-7">
                                                     <input id="pass" type="text" class="form-control" placeholder="pass"/>
                                                 </div>
                                                 <div class="col-md-2">
@@ -98,8 +98,8 @@
                                         <?php foreach ($data->args as $name => $arg) { ?>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label"><?=$arg ?></label>
-                                                <div class="col-md-8">
+                                                <label class="col-md-3 control-label"><?=$arg ?></label>
+                                                <div class="col-md-7">
                                                     <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
                                                 </div>
                                             </div>
