@@ -44,7 +44,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
         $('.btn-hash').each(function() {
             var $self = $(this);
             $self.click(function() {
-                $('#pass').val(CryptoJS.MD5(/*Base64.encode(*/$('#pass').val()/*)*/).toString()).attr('type', 'password');
+                $('#pass').val(CryptoJS.MD5(Base64.encode($('#pass').val())).toString()).attr('type', 'password');
                 $self.fadeOut();
             });
         });
@@ -113,8 +113,10 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             // foreach form fields to send
             $data = {};
             $('#endpoint-params .tab-pane.active input').each(function() {
-                // add field value
-                $data[$(this).attr('id')] = $(this).val();
+                // check if contains data
+                if ($(this).val().toString().length > 0)
+                    // add field value
+                    $data[$(this).attr('id')] = $(this).val();
             });
             // add data to request
             $request.data = $data;
