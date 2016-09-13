@@ -72,17 +72,21 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                     $this.oSuccess.text($response.success ? 'true' : 'false');
                     $this.oCode.text($response.code);
                     $this.oError.text($response.error);
-                    // check for response
-                    if ($response.result !== undefined && typeof $response.result != 'boolean')
-                        // show full response
-                        $this.oResult.jJsonViewer($response.result);
-                    // show boolean value
-                    else if (typeof $response.result == 'boolean') $this.oResult.html('<ul class="jjson-container"><li><span class="boolean">' + $response.result + '</span></li></ul>');
+                    for (var i in $response) {
+                        // ignore common elements
+                        if (['success', 'code', 'error'].indexOf(i) !== -1) continue;
+                        // add element to result
+                        $this.oResult.append('<div class="row"><div class="col-md-2"><kbd>'+i+'</kbd></div><div class="col-md-10"><var id="output-result-'+i+'"></var></div></div>');
+                        // show element value with JsonViewer
+                        if ($response[i] !== null && typeof $response[i] === 'object') $('#output-result-'+i).jJsonViewer($response[i]);
+                        // show element boolean value
+                        else $('#output-result-'+i).html('<ul class="jjson-container"><li><span class="boolean">' + $response[i] + '</span></li></ul>');
+                    }
                     // show raw response
                     $this.output.text(xhr.responseText);
-                    // panel color
+                    // change panel color
                     $('#output-panel').attr('class', 'panel minheight-150 ' + ($response.success ? 'panel-success' : 'panel-danger'));
-                    //
+                    // empty headers
                     $('#response-headers').empty();
                     var $headers = xhr.getAllResponseHeaders().split("\n").sort();
                     for (var i in $headers) {
@@ -97,13 +101,13 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                         $this.token = $this.token.split(';');
                         $this.token = $this.token[1] !== undefined ? $this.token[1] : $this.token[0];
                     }
+                    // show current token
                     $('#token').val($this.token);
                     $time = new Date() - $time;
                     var $seconds = Math.floor($time / 1000);
                     $time -= $seconds * 1000;
+                    // show request time
                     $('#response-headers').append('<div class="row"><div class="col-md-4"><kbd alt="Time">Time</kbd></div><div class="col-md-8"><var>'+$seconds+'s '+$time+'ms</var></div></div>');
-                    if ($response.result !== undefined && typeof $response.result != 'boolean')
-                        $('#response-headers').append('<div class="row"><div class="col-md-4"><kbd alt="Time">Result Count</kbd></div><div class="col-md-8"><var>'+$response.result.length+'</var></div></div>');
                     // unlock UI
                     _.unlock();
                 }
@@ -116,7 +120,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 // check if contains data
                 if ($(this).val().toString().length > 0)
                     // add field value
-                    $data[$(this).attr('id')] = $(this).val();
+                    $data[$(this).attr('id')] = $(this).attr('json') == 'true' ? JSON.parse($(this).val()) : $(this).val();
             });
             // add data to request
             $request.data = $data;
