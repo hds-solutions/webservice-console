@@ -161,10 +161,7 @@
                                         <div class="col-md-2"><kbd>error</kbd></div>
                                         <div class="col-md-10"><var id="output-error">&lt;string&gt;</var></div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-2"><kbd>result</kbd></div>
-                                        <div class="col-md-10"><var id="output-result">&lt;mixed&gt;</var></div>
-                                    </div>
+                                    <div id="output-result"></div>
 	                            </div>
 	                        </div>
 	                    </div>
