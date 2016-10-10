@@ -23,6 +23,10 @@
     min-height: 50px;
 }
 
+.panel-body {
+    overflow-wrap: break-word;
+}
+
 kbd {
     background: #ddd;
     color: #000;
