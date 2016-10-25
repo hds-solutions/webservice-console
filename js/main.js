@@ -48,6 +48,39 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 $self.fadeOut();
             });
         });
+        $('.field-wrapper+.crypt').each(function() {
+            var $self = $(this),
+                $field = $self.prev().find('>input'),
+                $btn = $self.find('>button');
+            $field.keydown(function(e) {
+                if ((e.keyCode == 8 || e.keyCode == 46) && $field.prop('crypted') === true) {
+                    $field.val('');
+                    $btn.fadeIn();
+                }
+            });
+            $btn.click(function() {
+                //
+                var $crypted = $field.val(),
+                    $types = $btn.attr('crypt').split(',');
+                //
+                for (var type in $types) {
+                    switch ($types[type]) {
+                        case 'md5':
+                            $crypted = CryptoJS.MD5($crypted).toString();
+                            break;
+                        case 'base64':
+                            $crypted = Base64.encode($crypted);
+                            break;
+                        default:
+                            throw new Error('Unknown crypt option ' + $types[type]);
+                    }
+                }
+                //
+                $field.val($crypted).prop('crypted', true);
+                //
+                $btn.fadeOut();
+            });
+        });
         // send button
         $('#send').click(function() {
             _.lock();
