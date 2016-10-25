@@ -75,7 +75,7 @@
                                         <div class="row">
 	                                        <div class="form-group">
 	                                            <label class="col-md-3 control-label">user</label>
-	                                            <div class="col-md-7">
+	                                            <div class="col-md-6">
 	                                                <input id="user" type="text" class="form-control" placeholder="user"/>
 	                                            </div>
 	                                        </div>
@@ -83,10 +83,10 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">pass</label>
-                                                <div class="col-md-7">
+                                                <div class="col-md-6">
                                                     <input id="pass" type="text" class="form-control" placeholder="pass"/>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <button class="btn btn-warning btn-xs btn-hash">HASH</button>
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$cArg ?></label>
-                                                <div class="col-md-7">
+                                                <div class="col-md-6">
                                                     <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
                                                 </div>
                                             </div>
@@ -116,9 +116,14 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$arg ?></label>
-                                                <div class="col-md-7">
+                                                <div class="col-md-6 field-wrapper">
                                                     <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
                                                 </div>
+                                                <?php if ($data->encrypt !== null && isset($data->encrypt->$arg)) { ?>
+                                                <div class="col-md-3 crypt">
+                                                    <button class="btn btn-warning btn-xs" crypt="<?php echo implode(',', $data->encrypt->$arg); ?>"><?php echo implode(' + ', $data->encrypt->$arg); ?></button>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                         <?php }} ?>
