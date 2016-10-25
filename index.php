@@ -24,7 +24,7 @@
 		                    <h3 class="panel-title"><?=$config->title?> Webservice Console</h3>
 		                </div>
                         <div class="panel-body">
-	                        <form action="../api/v1.0" class="form-horizontal" id="console">
+	                        <form action="<?=$config->url?>" class="form-horizontal" id="console">
                                 <div class="row">
 			                        <div class="form-group">
 			                            <label class="col-md-2 control-label">Endpoint</label>
