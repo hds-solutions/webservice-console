@@ -56,6 +56,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 if ((e.keyCode == 8 || e.keyCode == 46) && $field.prop('crypted') === true) {
                     $field.val('');
                     $btn.fadeIn();
+                    $field.prop('crypted', false);
                 }
             });
             $btn.click(function() {
