@@ -87,7 +87,7 @@
                                                     <input id="pass" type="text" class="form-control" placeholder="pass"/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <button class="btn btn-warning btn-xs btn-hash">HASH</button>
+                                                    <button class="btn btn-warning btn-xs btn-hash password">HASH</button>
                                                 </div>
                                             </div>
                                         </div>
