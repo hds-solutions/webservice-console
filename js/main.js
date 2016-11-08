@@ -38,7 +38,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
         $('#pass').keydown(function(e) {
             if ((e.keyCode == 8 || e.keyCode == 46) && $(this).attr('type') == 'password') {
                 $(this).val('').attr('type', 'text');
-                $('#hash').fadeIn();
+                $('.btn-hash.password').fadeIn();
             }
         });
         $('.btn-hash').each(function() {
