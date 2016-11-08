@@ -95,7 +95,20 @@
                                     <div class="tab-pane" id="delete-login"></div>
                                     <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
                                     <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
-                                        <?php foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                        <?php if (isset($data->json) && $data->json === true) { ?>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-md-offset-1 control-label align-left">JSON Data</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-md-offset-1">
+                                                    <textarea id="json" class="form-control" placeholder="json"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } else { foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-11 col-md-offset-1">
@@ -126,7 +139,7 @@
                                                 <?php } ?>
                                             </div>
                                         </div>
-                                        <?php }} ?>
+                                        <?php }}} ?>
                                     </div>
                                     <?php }} ?>
                                 </div>

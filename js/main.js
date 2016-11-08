@@ -56,6 +56,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 if ((e.keyCode == 8 || e.keyCode == 46) && $field.prop('crypted') === true) {
                     $field.val('');
                     $btn.fadeIn();
+                    $field.prop('crypted', false);
                 }
             });
             $btn.click(function() {
@@ -148,15 +149,22 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             // remove authorization if we haven't a token
             if ($this.token === null) delete $request.headers;
             // foreach form fields to send
-            $data = {};
-            $('#endpoint-params .tab-pane.active input').each(function() {
-                // check if contains data
-                if ($(this).val().toString().length > 0)
-                    // add field value
-                    $data[$(this).attr('id')] = $(this).attr('json') == 'true' ? JSON.parse($(this).val()) : $(this).val();
+            $request.data = {};
+            $('#endpoint-params .tab-pane.active textarea').each(function() {
+                // add content type to request
+                $request.contentType = 'application/json';
+                // add field
+                $request.data = JSON.stringify($(this).val());
             });
-            // add data to request
-            $request.data = $data;
+            // check for JSON post
+            if ($request.contentType === undefined)
+                // add default fields
+                $('#endpoint-params .tab-pane.active input').each(function() {
+                    // check if contains data
+                    if ($(this).val().toString().length > 0)
+                        // add field value
+                        $request.data[$(this).attr('id')] = $(this).attr('json') == 'true' ? JSON.parse($(this).val()) : $(this).val();
+                });
             // send request
             $.ajax($request);
         });

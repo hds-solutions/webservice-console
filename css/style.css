@@ -19,6 +19,15 @@
     margin-top: 15px;
 }
 
+textarea {
+    resize: none;
+    min-height: 250px;
+}
+
+.align-left {
+    text-align: left !important;
+}
+
 .panel-footer {
     min-height: 50px;
 }
