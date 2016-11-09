@@ -150,12 +150,14 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             if ($this.token === null) delete $request.headers;
             // foreach form fields to send
             $request.data = {};
-            $('#endpoint-params .tab-pane.active textarea').each(function() {
-                // add content type to request
-                $request.contentType = 'application/json';
-                // add field
-                $request.data = JSON.stringify($(this).val());
-            });
+            // ignore JSON data on GET requests
+            if ($this.method !== 'GET')
+                $('#endpoint-params .tab-pane.active textarea').each(function() {
+                    // add content type to request
+                    $request.contentType = 'application/json';
+                    // add field
+                    $request.data = JSON.stringify($(this).val());
+                });
             // check for JSON post
             if ($request.contentType === undefined)
                 // add default fields
