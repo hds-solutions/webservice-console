@@ -165,6 +165,26 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                         // add field value
                         $request.data[$(this).attr('id')] = $(this).attr('json') == 'true' ? JSON.parse($(this).val()) : $(this).val();
                 });
+            // check for DELETE request with data
+            if ($this.method === 'DELETE' && Object.keys($request.data).length > 0) {
+                // append data to request URI
+                var $url = $request.url.split('?'),
+                    $args = [],
+                    $args_raw = $url[1].split('&');
+                $url = $url[0];
+                // parse args
+                for (var i in $args_raw)
+                    $args[$args_raw[i].split('=')[0]] = $args_raw[i].split('=')[1];
+                // append data
+                for (var i in $request.data)
+                    $args[i] = $request.data[i];
+                // add args to url
+                $url += '?';
+                for (var i in $args)
+                    $url += i+'='+$args[i]+'&';
+                // replace url un request
+                $request.url = $url;
+            }
             // send request
             $.ajax($request);
         });
