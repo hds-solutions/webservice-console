@@ -172,7 +172,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 // append data to request URI
                 var $url = $request.url.split('?'),
                     $args = [],
-                    $args_raw = $url[1].split('&');
+                    $args_raw = $url[1] === undefined ? [] : $url[1].split('&');
                 $url = $url[0];
                 // parse args
                 for (var i in $args_raw)
