@@ -39,10 +39,9 @@
                                                         foreach ($edata as $method => $data) {
                                                             if ($method == 'separator')
                                                                 echo '<option disabled></option>';
-                                                            else {
+                                                            else
                                                                 echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
-                                                                $endpointno++;
-                                                            }
+                                                            $endpointno++;
                                                         }
                                                     }
                                                 ?>
