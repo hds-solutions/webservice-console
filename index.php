@@ -71,8 +71,7 @@
                                         <?php
                                             foreach ($config->endpoints as $endpoint => $edata)
                                                 foreach ($edata as $method => $data)
-                                                    if ($method !== 'separator')
-                                                        echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
+                                                    echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
                                         ?>
 	                                </ul>
                                 </div>
