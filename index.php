@@ -36,13 +36,14 @@
                                                 <?php
                                                     $endpointno = 3;
                                                     foreach ($config->endpoints as $endpoint => $edata) {
-                                                        if ($endpoint == 'separator')
-                                                            echo '<option disabled></option>';
-                                                        else
-                                                            foreach ($edata as $method => $data) {
+                                                        foreach ($edata as $method => $data) {
+                                                            if ($method == 'separator')
+                                                                echo '<option disabled></option>';
+                                                            else {
                                                                 echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
                                                                 $endpointno++;
                                                             }
+                                                        }
                                                     }
                                                 ?>
 			                                </select>
@@ -69,8 +70,10 @@
 	                                    <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
                                         <?php
-                                            foreach ($config->endpoints as $endpoint => $edata) foreach ($edata as $method => $data)
-                                                echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
+                                            foreach ($config->endpoints as $endpoint => $edata)
+                                                foreach ($edata as $method => $data)
+                                                    if ($method !== 'separator')
+                                                        echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
                                         ?>
 	                                </ul>
                                 </div>
