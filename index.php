@@ -35,10 +35,15 @@
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
                                                 <?php
                                                     $endpointno = 3;
-                                                    foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) {
-                                                        echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
-                                                        $endpointno++;
-                                                    }}
+                                                    foreach ($config->endpoints as $endpoint => $edata) {
+                                                        if ($endpoint == 'separator')
+                                                            echo '<option disabled></option>';
+                                                        else
+                                                            foreach ($edata as $method => $data) {
+                                                                echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
+                                                                $endpointno++;
+                                                            }
+                                                    }
                                                 ?>
 			                                </select>
 			                            </div>
