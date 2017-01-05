@@ -161,7 +161,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             // check for JSON post
             if ($request.contentType === undefined)
                 // add default fields
-                $('#endpoint-params .tab-pane.active input').each(function() {
+                $('#endpoint-params .tab-pane.active input,#endpoint-params .tab-pane.active select').each(function() {
                     // check if contains data
                     if ($(this).val().toString().length > 0)
                         // add field value

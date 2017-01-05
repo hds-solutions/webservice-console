@@ -127,7 +127,16 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$cArg ?></label>
                                                 <div class="col-md-6">
+                                                    <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
+                                                    <select id="<?=$cArg; ?>" class="form-control">
+                                                        <option></option>
+                                                        <?php foreach ($data->select->$cArg as $option) { ?>
+                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } else { ?>
                                                     <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +145,16 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$arg ?></label>
                                                 <div class="col-md-6 field-wrapper">
+                                                    <?php if (isset($data->select) && isset($data->select->$arg)) { ?>
+                                                    <select id="<?=$arg; ?>" class="form-control">
+                                                        <option></option>
+                                                        <?php foreach ($data->select->$arg as $option) { ?>
+                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } else { ?>
                                                     <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
+                                                    <?php } ?>
                                                 </div>
                                                 <?php if ($data->encrypt !== null && isset($data->encrypt->$arg)) { ?>
                                                 <div class="col-md-3 crypt">
