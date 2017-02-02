@@ -162,8 +162,12 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             if ($request.contentType === undefined)
                 // add default fields
                 $('#endpoint-params .tab-pane.active input,#endpoint-params .tab-pane.active select').each(function() {
+                    // check null
+                    if ($(this).val() == 'null')
+                        // add field as null value
+                        $request.data[$(this).attr('id')] = null;
                     // check if contains data
-                    if ($(this).val().toString().length > 0)
+                    else if ($(this).val().toString().length > 0)
                         // add field value
                         $request.data[$(this).attr('id')] = $(this).attr('json') == 'true' ? JSON.parse($(this).val()) : $(this).val();
                 });
