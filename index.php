@@ -33,20 +33,13 @@
                                                 <option value="0" method="GET" endpoint="login" extra="false" selected="selected">GET/login</option>
                                                 <option value="1" method="POST" endpoint="login" extra="false">POST/login</option>
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
-                                                <?php
-                                                    $endpointno = 3;
-                                                    foreach ($config->endpoints as $endpoint => $edata) {
-                                                        foreach ($edata as $method => $data) {
-                                                            if ($method == 'separator')
-                                                                echo '<option disabled></option>';
-                                                            else
-                                                                echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
-                                                            $endpointno++;
-                                                        }
-                                                    }
-                                                ?>
-			                                </select>
-			                            </div>
+                                                <?php $endpointno = 3; foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { if ($method == 'separator') { ?>
+                                                <option disabled></option>
+                                                <?php } else { ?>
+                                                <option value="<?=$endpointno;?>" method="<?=$method;?>" endpoint="<?=$endpoint;?>" extra="<?=(isset($data->extra)&&$data->extra?'true':'false');?>"><?=$method.'/'.$endpoint;?></option>
+                                                <?php } $endpointno++; }} ?>
+                                            </select>
+                                        </div>
                                         <div class="col-md-5">
                                             <input class="form-control" placeholder="/extra" id="extra"/>
                                         </div>
@@ -68,12 +61,10 @@
                                         <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
                                         <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
-                                        <?php
-                                            foreach ($config->endpoints as $endpoint => $edata)
-                                                foreach ($edata as $method => $data)
-                                                    echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
-                                        ?>
-	                                </ul>
+                                        <?php foreach ($config->endpoints as $endpoint => $edata) foreach ($edata as $method => $data) { ?>
+                                        <li><a href="#<?=strtolower($method).'-'.$endpoint;?>" data-toggle="tab"><?=$method.'/'.$endpoint;?></a></li>
+                                        <?php } ?>
+                                    </ul>
                                 </div>
                                 <div class="tab-content form-horizontal" id="endpoint-params">
                                     <div class="tab-pane active" id="get-login"></div>
@@ -148,22 +139,22 @@
                                         <?php } else { ?>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label class="col-md-3 control-label"><?=$arg ?></label>
+                                                <label class="col-md-3 control-label"><?=$arg;?></label>
                                                 <div class="col-md-6 field-wrapper">
                                                 <?php if (isset($data->select) && isset($data->select->$arg)) { ?>
                                                     <select id="<?=$arg;?>" class="form-control">
                                                         <option></option>
                                                         <?php foreach ($data->select->$arg as $option) { ?>
-                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
+                                                        <option value="<?=$option; ?>"><?=$option;?></option>
                                                         <?php } ?>
                                                     </select>
                                                     <?php } else { ?>
-                                                    <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
+                                                    <input id="<?=$arg;?>" type="text" class="form-control" placeholder="<?=$arg;?>"/>
                                                     <?php } ?>
                                                 </div>
                                                 <?php if (isset($data->encrypt) && isset($data->encrypt->$arg)) { ?>
                                                 <div class="col-md-3 crypt">
-                                                    <button class="btn btn-warning btn-xs" crypt="<?php echo implode(',', $data->encrypt->$arg); ?>"><?php echo implode(' + ', $data->encrypt->$arg); ?></button>
+                                                    <button class="btn btn-warning btn-xs" crypt="<?=implode(',', $data->encrypt->$arg);?>"><?=implode(' + ', $data->encrypt->$arg);?></button>
                                                 </div>
                                                 <?php } ?>
                                             </div>
