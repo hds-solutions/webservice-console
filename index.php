@@ -99,8 +99,8 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="delete-login"></div>
-                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
-                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
+                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { if ($method == 'separator') continue; ?>
+                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint;?>">
                                         <?php if (isset($data->json) && $data->json === true) { ?>
                                         <div class="row">
                                             <div class="form-group">
