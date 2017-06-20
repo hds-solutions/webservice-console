@@ -19,41 +19,34 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-		            <div class="panel panel-primary">
-		                <div class="panel-heading">
-		                    <h3 class="panel-title"><?=$config->title?> Webservice Console</h3>
-		                </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?=$config->title?> Webservice Console</h3>
+                        </div>
                         <div class="panel-body">
-	                        <form action="<?=$config->url?>" class="form-horizontal" id="console">
+                            <form action="<?=$config->url?>" class="form-horizontal" id="console">
                                 <div class="row">
-			                        <div class="form-group">
-			                            <label class="col-md-2 control-label">Endpoint</label>
-			                            <div class="col-md-3">
-			                                <select class="form-control" id="endpoint">
-			                                    <option value="0" method="GET" endpoint="login" extra="false" selected="selected">GET/login</option>
-			                                    <option value="1" method="POST" endpoint="login" extra="false">POST/login</option>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Endpoint</label>
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="endpoint">
+                                                <option value="0" method="GET" endpoint="login" extra="false" selected="selected">GET/login</option>
+                                                <option value="1" method="POST" endpoint="login" extra="false">POST/login</option>
                                                 <option value="2" method="DELETE" endpoint="login" extra="false">DELETE/login</option>
-                                                <?php
-                                                    $endpointno = 3;
-                                                    foreach ($config->endpoints as $endpoint => $edata) {
-                                                        foreach ($edata as $method => $data) {
-                                                            if ($method == 'separator')
-                                                                echo '<option disabled></option>';
-                                                            else
-                                                                echo '<option value="'.$endpointno.'" method="'.$method.'" endpoint="'.$endpoint.'" extra="'.($data->extra?'true':'false').'">'.$method.'/'.$endpoint.'</option>';
-                                                            $endpointno++;
-                                                        }
-                                                    }
-                                                ?>
-			                                </select>
-			                            </div>
+                                                <?php $endpointno = 3; foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { if ($method == 'separator') { ?>
+                                                <option disabled></option>
+                                                <?php } else { ?>
+                                                <option value="<?=$endpointno;?>" method="<?=$method;?>" endpoint="<?=$endpoint;?>" extra="<?=(isset($data->extra)&&$data->extra?'true':'false');?>"><?=$method.'/'.$endpoint;?></option>
+                                                <?php } $endpointno++; }} ?>
+                                            </select>
+                                        </div>
                                         <div class="col-md-5">
                                             <input class="form-control" placeholder="/extra" id="extra"/>
                                         </div>
-			                            <div class="col-md-2">
-			                                <button class="btn btn-primary" id="send">SEND</button>
-			                            </div>
-			                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary" id="send">SEND</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
@@ -64,27 +57,25 @@
                                     </div>
                                 </div>
                                 <div class="row hidden">
-	                                <ul class="nav nav-tabs" role="tablist" id="endpoint-tabs">
-	                                    <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
-	                                    <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
+                                    <ul class="nav nav-tabs" role="tablist" id="endpoint-tabs">
+                                        <li><a href="#get-login" data-toggle="tab">GET/login</a></li>
+                                        <li><a href="#post-login" data-toggle="tab">POST/login</a></li>
                                         <li><a href="#delete-login" data-toggle="tab">DELETE/login</a></li>
-                                        <?php
-                                            foreach ($config->endpoints as $endpoint => $edata)
-                                                foreach ($edata as $method => $data)
-                                                    echo '<li><a href="#'.strtolower($method).'-'.$endpoint.'" data-toggle="tab">'.$method.'/'.$endpoint.'</a></li>';
-                                        ?>
-	                                </ul>
+                                        <?php foreach ($config->endpoints as $endpoint => $edata) foreach ($edata as $method => $data) { ?>
+                                        <li><a href="#<?=strtolower($method).'-'.$endpoint;?>" data-toggle="tab"><?=$method.'/'.$endpoint;?></a></li>
+                                        <?php } ?>
+                                    </ul>
                                 </div>
                                 <div class="tab-content form-horizontal" id="endpoint-params">
                                     <div class="tab-pane active" id="get-login"></div>
                                     <div class="tab-pane" id="post-login">
                                         <div class="row">
-	                                        <div class="form-group">
-	                                            <label class="col-md-3 control-label">user</label>
-	                                            <div class="col-md-6">
-	                                                <input id="user" type="text" class="form-control" placeholder="user"/>
-	                                            </div>
-	                                        </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">user</label>
+                                                <div class="col-md-6">
+                                                    <input id="user" type="text" class="form-control" placeholder="user"/>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group">
@@ -99,8 +90,8 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="delete-login"></div>
-                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { ?>
-                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint; ?>">
+                                    <?php foreach ($config->endpoints as $endpoint => $edata) { foreach ($edata as $method => $data) { if ($method == 'separator') continue; ?>
+                                    <div class="tab-pane" id="<?=strtolower($method).'-'.$endpoint;?>">
                                         <?php if (isset($data->json) && $data->json === true) { ?>
                                         <div class="row">
                                             <div class="form-group">
@@ -114,60 +105,67 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php } else { foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                        <?php } else { if (isset($data->args)) { $flag = false; foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') $flag = true; } if ($flag) { ?>
                                         <div class="row">
-                                            <div class="form-group">
-                                                <div class="col-md-11 col-md-offset-1">
-                                                    <h3><?=$name ?></h3>
-                                                </div>
-                                            </div>
+                                            <ul class="nav nav-tabs" role="tablist" id="endpoint-args">
+                                                <?php $first = true; foreach ($data->args as $name => $arg) { ?>
+                                                <li<?=$first?' class="active"':''?>><a href="#'<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8)?>" data-toggle="tab"><?=$name?></a></li>
+                                                <?php $first = false; } ?>
+                                            </ul>
                                         </div>
-                                        <?php foreach ($arg as $cArg) { ?>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label"><?=$cArg ?></label>
-                                                <div class="col-md-6">
-                                                    <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
-                                                    <select id="<?=$cArg; ?>" class="form-control">
-                                                        <option></option>
-                                                        <?php foreach ($data->select->$cArg as $option) { ?>
-                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                    <?php } else { ?>
-                                                    <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
-                                                    <?php } ?>
+                                        <div class="tab-content" id="endpoint-args2">
+                                            <?php } $first = true; foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                            <div class="tab-pane panel-body<?=$first?' active':'';?>" id="<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8);?>">
+                                                <?php $first = false; foreach ($arg as $cArg) { ?>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label"><?=$cArg;?></label>
+                                                        <div class="col-md-6">
+                                                        <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
+                                                            <select id="<?=$cArg; ?>" class="form-control">
+                                                                <option></option>
+                                                                <?php foreach ($data->select->$cArg as $option) { ?>
+                                                                <option value="<?=$option;?>"><?=$option;?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <?php } else { ?>
+                                                            <input id="<?=$cArg;?>" type="text" class="form-control" placeholder="<?=$cArg;?>"/>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <?php } ?>
                                             </div>
-                                        </div>
-                                        <?php }} else { ?>
+                                        <?php } else { ?>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label class="col-md-3 control-label"><?=$arg ?></label>
+                                                <label class="col-md-3 control-label"><?=$arg;?></label>
                                                 <div class="col-md-6 field-wrapper">
-                                                    <?php if (isset($data->select) && isset($data->select->$arg)) { ?>
-                                                    <select id="<?=$arg; ?>" class="form-control">
+                                                <?php if (isset($data->select) && isset($data->select->$arg)) { ?>
+                                                    <select id="<?=$arg;?>" class="form-control">
                                                         <option></option>
                                                         <?php foreach ($data->select->$arg as $option) { ?>
-                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
+                                                        <option value="<?=$option; ?>"><?=$option;?></option>
                                                         <?php } ?>
                                                     </select>
                                                     <?php } else { ?>
-                                                    <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
+                                                    <input id="<?=$arg;?>" type="text" class="form-control" placeholder="<?=$arg;?>"/>
                                                     <?php } ?>
                                                 </div>
-                                                <?php if ($data->encrypt !== null && isset($data->encrypt->$arg)) { ?>
+                                                <?php if (isset($data->encrypt) && isset($data->encrypt->$arg)) { ?>
                                                 <div class="col-md-3 crypt">
-                                                    <button class="btn btn-warning btn-xs" crypt="<?php echo implode(',', $data->encrypt->$arg); ?>"><?php echo implode(' + ', $data->encrypt->$arg); ?></button>
+                                                    <button class="btn btn-warning btn-xs" crypt="<?=implode(',', $data->encrypt->$arg);?>"><?=implode(' + ', $data->encrypt->$arg);?></button>
                                                 </div>
                                                 <?php } ?>
                                             </div>
                                         </div>
-                                        <?php }}} ?>
+                                        <?php }} if ($flag) { ?>
+                                            </div>
+                                            <?php }}} ?>
                                     </div>
                                     <?php }} ?>
                                 </div>
-		                   </form>
+                           </form>
                         </div>
                         <div class="panel-footer">
                             <div class="row hidden">
@@ -183,14 +181,14 @@
                         </div>
                     </div>
                 </div>
-	            <div class="col-md-6">
-	                <div class="row">
-	                    <div class="col-md-12">
-	                        <div class="panel panel-success minheight-150" id="output-panel">
-	                            <div class="panel-heading">
-	                                <h3 class="panel-title">Output</h3>
-	                            </div>
-	                            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-success minheight-150" id="output-panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Output</h3>
+                                </div>
+                                <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-2"><kbd>success</kbd></div>
                                         <div class="col-md-10"><var id="output-success">true | false</var></div>
@@ -204,24 +202,24 @@
                                         <div class="col-md-10"><var id="output-error">&lt;string&gt;</var></div>
                                     </div>
                                     <div id="output-result"></div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="row">
-	                    <div class="col-md-12">
-	                        <div class="panel panel-info minheight-150">
-	                            <div class="panel-heading">
-	                                <h3 class="panel-title">RAW Output</h3>
-	                            </div>
-	                            <div class="panel-body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-info minheight-150">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">RAW Output</h3>
+                                </div>
+                                <div class="panel-body">
                                     <samp id="raw-output"><?php echo json_encode([ 'success' => false, 'code' => 16, 'error' => 'unknown' ]); ?></samp>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
