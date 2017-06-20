@@ -114,33 +114,38 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php } else { foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                        <?php } else { if (isset($data->args)) { $flag = false; foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') $flag = true; } if ($flag) { ?>
                                         <div class="row">
-                                            <div class="form-group">
-                                                <div class="col-md-11 col-md-offset-1">
-                                                    <h3><?=$name ?></h3>
-                                                </div>
-                                            </div>
+                                            <ul class="nav nav-tabs" role="tablist" id="endpoint-args">
+                                                <?php $first = true; foreach ($data->args as $name => $arg) { ?>
+                                                <li<?=$first?' class="active"':''?>><a href="#'<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8)?>" data-toggle="tab"><?=$name?></a></li>
+                                                <?php $first = false; } ?>
+                                            </ul>
                                         </div>
-                                        <?php foreach ($arg as $cArg) { ?>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label"><?=$cArg ?></label>
-                                                <div class="col-md-6">
-                                                    <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
-                                                    <select id="<?=$cArg; ?>" class="form-control">
-                                                        <option></option>
-                                                        <?php foreach ($data->select->$cArg as $option) { ?>
-                                                        <option value="<?=$option; ?>"><?=$option; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                    <?php } else { ?>
-                                                    <input id="<?=$cArg; ?>" type="text" class="form-control" placeholder="<?=$cArg; ?>"/>
-                                                    <?php } ?>
+                                        <div class="tab-content" id="endpoint-args2">
+                                            <?php } $first = true; foreach ($data->args as $name => $arg) { if (gettype($arg) == 'array') { ?>
+                                            <div class="tab-pane panel-body<?=$first?' active':'';?>" id="<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8);?>">
+                                                <?php $first = false; foreach ($arg as $cArg) { ?>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label"><?=$cArg;?></label>
+                                                        <div class="col-md-6">
+                                                        <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
+                                                            <select id="<?=$cArg; ?>" class="form-control">
+                                                                <option></option>
+                                                                <?php foreach ($data->select->$cArg as $option) { ?>
+                                                                <option value="<?=$option;?>"><?=$option;?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <?php } else { ?>
+                                                            <input id="<?=$cArg;?>" type="text" class="form-control" placeholder="<?=$cArg;?>"/>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <?php } ?>
                                             </div>
-                                        </div>
-                                        <?php }} else { ?>
+                                        <?php } else { ?>
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label"><?=$arg ?></label>
@@ -156,14 +161,16 @@
                                                     <input id="<?=$arg; ?>" type="text" class="form-control" placeholder="<?=$arg; ?>"/>
                                                     <?php } ?>
                                                 </div>
-                                                <?php if ($data->encrypt !== null && isset($data->encrypt->$arg)) { ?>
+                                                <?php if (isset($data->encrypt) && isset($data->encrypt->$arg)) { ?>
                                                 <div class="col-md-3 crypt">
                                                     <button class="btn btn-warning btn-xs" crypt="<?php echo implode(',', $data->encrypt->$arg); ?>"><?php echo implode(' + ', $data->encrypt->$arg); ?></button>
                                                 </div>
                                                 <?php } ?>
                                             </div>
                                         </div>
-                                        <?php }}} ?>
+                                        <?php }} if ($flag) { ?>
+                                            </div>
+                                            <?php }}} ?>
                                     </div>
                                     <?php }} ?>
                                 </div>
