@@ -109,7 +109,7 @@
                                         <div class="row">
                                             <ul class="nav nav-tabs" role="tablist" id="endpoint-args">
                                                 <?php $first = true; foreach ($data->args as $name => $arg) { ?>
-                                                <li<?=$first?' class="active"':''?>><a href="#'<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8)?>" data-toggle="tab"><?=$name?></a></li>
+                                                <li<?=$first?' class="active"':''?>><a href="#<?=strtolower($method).'-'.$endpoint.'_'.substr(md5($name), 8, 8)?>" data-toggle="tab"><?=$name?></a></li>
                                                 <?php $first = false; } ?>
                                             </ul>
                                         </div>
