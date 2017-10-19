@@ -97,7 +97,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                 method: $this.method,
                 url: $this.url + '/' + $this.endpoint + ($this.extra.val() != '' ? $this.extra.val() : ''),
                 headers: {
-                    'Authorization': $this.token
+                    'Authorization-Token': $this.token
                 },
                 complete: function(xhr) {
                     // parse response
@@ -126,11 +126,11 @@ this.AgenciaModerna = this.AgenciaModerna || {};
                     for (var i in $headers) {
                         if ($headers[i] == '') continue;
                         var $header = $headers[i].split(':');
-                        if (['Date', 'Content-Length', 'Authorization', 'Content-Type'].indexOf($header[0]) < 0) continue;
+                        if (['Date', 'Content-Length', 'Authorization-Token', 'Content-Type'].indexOf($header[0]) < 0) continue;
                         $('#response-headers').append('<div class="row"><div class="col-md-4"><kbd alt="'+$header[0]+'">'+$header[0]+'</kbd></div><div class="col-md-8"><var>'+$header[1]+'</var></div></div>');
                     }
                     // save new token
-                    $this.token = xhr.getResponseHeader('Authorization');
+                    $this.token = xhr.getResponseHeader('Authorization-Token');
                     if ($this.token !== null) {
                         $this.token = $this.token.split(';');
                         $this.token = $this.token[1] !== undefined ? $this.token[1] : $this.token[0];
