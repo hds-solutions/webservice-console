@@ -132,6 +132,11 @@
                                                             <input id="<?=$cArg;?>" type="text" class="form-control" placeholder="<?=$cArg;?>"/>
                                                             <?php } ?>
                                                         </div>
+                                                        <?php if (isset($data->encrypt) && isset($data->encrypt->$name) && isset($data->encrypt->$name->$cArg)) { ?>
+                                                        <div class="col-md-3 crypt">
+                                                            <button class="btn btn-warning btn-xs" crypt="<?=implode(',', $data->encrypt->$name->$cArg);?>"><?=implode(' + ', $data->encrypt->$name->$cArg);?></button>
+                                                        </div>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                                 <?php } ?>
