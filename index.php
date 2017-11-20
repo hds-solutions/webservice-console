@@ -120,11 +120,11 @@
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label"><?=$cArg;?></label>
-                                                        <div class="col-md-6">
-                                                        <?php if (isset($data->select) && isset($data->select->$cArg)) { ?>
+                                                        <div class="col-md-6 field-wrapper">
+                                                        <?php if (isset($data->select) && isset($data->select->$name) && isset($data->select->$name->$cArg)) { ?>
                                                             <select id="<?=$cArg; ?>" class="form-control">
                                                                 <option></option>
-                                                                <?php foreach ($data->select->$cArg as $option) { ?>
+                                                                <?php foreach ($data->select->$name->$cArg as $option) { ?>
                                                                 <option value="<?=$option;?>"><?=$option;?></option>
                                                                 <?php } ?>
                                                             </select>
