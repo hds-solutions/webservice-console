@@ -70,21 +70,30 @@
                                     <div class="tab-pane active" id="get-login"></div>
                                     <div class="tab-pane" id="post-login">
                                         <div class="row">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">user</label>
-                                                <div class="col-md-6">
-                                                    <input id="user" type="text" class="form-control" placeholder="user"/>
-                                                </div>
-                                            </div>
+                                            <ul class="nav nav-tabs" role="tablist" id="endpoint-args">
+                                                <li class="active"><a href="#POST-login" data-toggle="tab">POST/login</a></li>
+                                            </ul>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">pass</label>
-                                                <div class="col-md-6">
-                                                    <input id="pass" type="text" class="form-control" placeholder="pass"/>
+                                        <div class="tab-content" id="endpoint-args2">
+                                            <div class="tab-pane panel-body active" id="POST-login">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">user</label>
+                                                        <div class="col-md-6">
+                                                            <input id="user" type="text" class="form-control" placeholder="user"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <button class="btn btn-warning btn-xs btn-hash password">HASH</button>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">pass</label>
+                                                        <div class="col-md-6">
+                                                            <input id="pass" type="text" class="form-control" placeholder="pass"/>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-warning btn-xs btn-hash password">HASH</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
