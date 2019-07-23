@@ -152,7 +152,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             $request.data = {};
             // ignore JSON data on GET requests
             if ($this.method !== 'GET')
-                $('#endpoint-params .tab-pane.panel-body.active textarea').each(function() {
+                $('#endpoint-params .tab-pane.active textarea').each(function() {
                     // add content type to request
                     $request.contentType = 'application/json';
                     // add field
@@ -161,7 +161,7 @@ this.AgenciaModerna = this.AgenciaModerna || {};
             // check for JSON post
             if ($request.contentType === undefined)
                 // add default fields
-                $('#endpoint-params .tab-pane.panel-body.active input,#endpoint-params .tab-pane.panel-body.active select').each(function() {
+                $('#endpoint-params .tab-pane.active input,#endpoint-params .tab-pane.active select').each(function() {
                     // check null
                     if ($(this).val() == 'null')
                         // add field as null value
