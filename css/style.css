@@ -1,55 +1,87 @@
 @CHARSET "UTF-8";
-/*
-.container-fluid {
-    margin-top: 15px;
+
+:root {
+    --primary: #007bff;
+    --primary2: #7fcbfd;
+    --secondary: #6c757d;
+    --secondary2: #b6bbbe;
+    --success: #28a745;
+    --success2: #a2c6a1;
+    --danger: #dc3545;
+    --danger2: #e6a3a5;
+    --warning: #ffc107;
+    --warning2: #ffd387;
+    --info: #17a2b8;
+    --info2: #94d0da;
+    --light: #f8f9fa;
+    --light2: #fcfcfd;
+    --dark: #343a40;
+    --dark2: #9a9da0;
 }
 
-.minheight-500 {
-    min-height: 500px;
+.card.card-primary .card-header {
+    background-color: var(--primary2);
+}
+.card.card-primary kbd {
+    background-color: var(--primary);
 }
 
-.minheight-250 {
-    min-height: 250px;
+.card.card-secondary .card-header {
+    background-color: var(--secondary2);
+}
+.card.card-secondary kbd {
+    background-color: var(--secondary);
 }
 
-.minheight-150 {
-    min-height: 150px;
+.card.card-success .card-header {
+    background-color: var(--success2);
+}
+.card.card-success kbd {
+    background-color: var(--success2);
+    color: #041;
 }
 
-#endpoint-params {
-    margin-top: 15px;
+.card.card-danger .card-header {
+    background-color: var(--danger2);
+}
+.card.card-danger kbd {
+    background-color: var(--danger);
+}
+
+.card.card-warning .card-header {
+    background-color: var(--warning2);
+}
+.card.card-warning kbd {
+    background-color: var(--warning);
+}
+
+.card.card-info .card-header {
+    background-color: var(--info2);
+}
+.card.card-info kbd {
+    background-color: var(--info);
+}
+
+.card.card-light .card-header {
+    background-color: var(--light2);
+}
+.card.card-light kbd {
+    background-color: var(--light);
+}
+
+.card.card-dark .card-header {
+    background-color: var(--dark2);
+}
+.card.card-dark kbd {
+    background-color: var(--dark);
+}
+
+.jjson-container, samp {
+    margin: 0;
+    font-size: 12px;
 }
 
 textarea {
     resize: none;
-    min-height: 250px;
+    min-height: 100px;
 }
-
-.align-left {
-    text-align: left !important;
-}
-
-.panel-footer {
-    min-height: 50px;
-}
-
-.panel-body {
-    overflow-wrap: break-word;
-}
-
-kbd {
-    background: #ddd;
-    color: #000;
-}
-
-.jjson-container {
-    max-height: 50vh;
-}
-
-#response-headers .row {
-    max-height: 22px;
-    overflow: hidden;
-    padding: 1px 0;
-}
-
-*/
