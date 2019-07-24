@@ -42,6 +42,10 @@
         <script src="inc/wholeauth/src/net/hds-solutions/wholeauth/js/wholeauth.min.js"></script>
         <script src="inc/wholeauth/src/net/hds-solutions/wholeauth/js/wholeauth-wk.min.js"></script>
         <script src="inc/wholeauth/src/net/hds-solutions/wholeauth/js/wholeauth-alertify.min.js"></script>
-        <!-- <script src="js/main.js?v=<?=VERSION;?>"></script> -->
+        <script src="js/classes/ConsoleEvent.class.js?v=<?=VERSION;?>"></script>
+        <script src="js/classes/Console.class.js?v=<?=VERSION;?>"></script>
+        <script src="js/classes/Endpoint.class.js?v=<?=VERSION;?>"></script>
+        <script src="js/libs.js?v=<?=VERSION;?>"></script>
+        <script src="js/main.js?v=<?=VERSION;?>"></script>
     </body>
 </html>
