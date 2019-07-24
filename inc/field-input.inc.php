@@ -1,1 +1,1 @@
-<input id="<?=$field;?>" type="text" class="form-control" placeholder="<?=$field;?>"/>
+<input name="<?=$field;?>" type="text" class="form-control" placeholder="<?=$field;?>"/>

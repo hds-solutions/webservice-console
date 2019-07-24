@@ -1,5 +1,5 @@
-<div class="row">
-    <ul class="nav nav-tabs" role="tablist">
+<div class="row d-none">
+    <ul class="nav nav-tabs" role="tablist" id="endpoint-tabs">
         <?php
             // foreach endpoints
             foreach ($config->endpoints as $endpoint => $methods)

@@ -14,7 +14,12 @@
     <?php
         // foreach args endpoints
         foreach ($data->args as $endpoint_args => $args)
-            // show endpoint.args container
-            include 'inc/endpoint-args-tab-content.inc.php';
+            // validate JSON payload
+            if (!is_array($args) && $args == 'json')
+                // load json input container
+                include 'inc/endpoint-params-json.inc.php';
+            else
+                // show endpoint.args container
+                include 'inc/endpoint-args-tab-content.inc.php';
     ?>
 </div>
