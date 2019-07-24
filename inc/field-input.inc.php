@@ -1,0 +1,1 @@
+<input name="<?=$field;?>" type="text" class="form-control" placeholder="<?=$field;?>"/>

@@ -1,3 +1,11 @@
+ready(_ => {
+    // create console
+    const wsconsole = new Console();
+    // init console
+    wsconsole.init();
+});
+
+/*
 // declaramos la instancia
 this.AgenciaModerna = this.AgenciaModerna || {};
 // metodos genericos
@@ -17,70 +25,6 @@ this.AgenciaModerna = this.AgenciaModerna || {};
         $('#console').submit(function() {
             // cancel default submit
             return false;
-        });
-        // link tabs with select
-        $('#endpoint').change(function() {
-            // save values
-            $this.method = $(this).find('>option').eq($(this).val()).attr('method');
-            $this.endpoint = $(this).find('>option').eq($(this).val()).attr('endpoint');
-            // check if extra
-            $this.extra.removeAttr('class').addClass('form-control');
-            if ($(this).find('>option').eq($(this).val()).attr('extra') !== 'true') $this.extra.addClass('hidden').val('');
-            // fire show event
-            $('#endpoint-tabs>li>a').eq($(this).val()).tab('show');
-        }).val(0).change();
-        //
-        $('#extra').keyup(function(e) {
-            // check for slash at start
-            if (e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46 && $(this).val().substr(0, 1) !== '/') $(this).val('/' + $(this).val());
-        });
-        //
-        $('#pass').keydown(function(e) {
-            if ((e.keyCode == 8 || e.keyCode == 46) && $(this).attr('type') == 'password') {
-                $(this).val('').attr('type', 'text');
-                $('.btn-hash.password').fadeIn();
-            }
-        });
-        $('.btn-hash').each(function() {
-            var $self = $(this);
-            $self.click(function() {
-                $('#pass').val(CryptoJS.MD5(Base64.encode($('#pass').val())).toString()).attr('type', 'password');
-                $self.fadeOut();
-            });
-        });
-        $('.field-wrapper+.crypt').each(function() {
-            var $self = $(this),
-                $field = $self.prev().find('>input'),
-                $btn = $self.find('>button');
-            $field.keydown(function(e) {
-                if ((e.keyCode == 8 || e.keyCode == 46) && $field.prop('crypted') === true) {
-                    $field.val('');
-                    $btn.fadeIn();
-                    $field.prop('crypted', false);
-                }
-            });
-            $btn.click(function() {
-                //
-                var $crypted = $field.val(),
-                    $types = $btn.attr('crypt').split(',');
-                //
-                for (var type in $types) {
-                    switch ($types[type]) {
-                        case 'md5':
-                            $crypted = CryptoJS.MD5($crypted).toString();
-                            break;
-                        case 'base64':
-                            $crypted = Base64.encode($crypted);
-                            break;
-                        default:
-                            throw new Error('Unknown crypt option ' + $types[type]);
-                    }
-                }
-                //
-                $field.val($crypted).prop('crypted', true);
-                //
-                $btn.fadeOut();
-            });
         });
         // send button
         $('#send').click(function() {
@@ -200,3 +144,4 @@ this.AgenciaModerna = this.AgenciaModerna || {};
 }(AgenciaModerna, jQuery, WholeAuth));
 // ejecutamos el proceso de la pagina
 jQuery(AgenciaModerna.init);
+*/
